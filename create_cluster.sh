@@ -4,12 +4,20 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "\n*******************************************************************************************************************"
 echo "Installing Kind"
 echo "*******************************************************************************************************************"
+# Mac
+# Install Docker Desktop
 #brew update && brew install kind
+
+# Ubuntu
+# Install/Upgrade to Docker/20+
+#./install_kind.sh
 
 echo "\n*******************************************************************************************************************"
 echo "Creating new kind cluster"
 echo "*******************************************************************************************************************"
-kind create cluster --config "$SCRIPT_DIR"/config.yaml --name dev
+kind create cluster --config "$SCRIPT_DIR"/develop.config.yaml --name develop
+# kind create cluster --config "$SCRIPT_DIR"/remote1.config.yaml --name remote1
+# kind create cluster --config "$SCRIPT_DIR"/remote2.config.yaml --name remote2
 
 echo "\n*******************************************************************************************************************"
 echo "Installing Calico"
@@ -29,4 +37,4 @@ kubectl apply -f mirror_ingress_deploy.yaml
 echo "\n*******************************************************************************************************************"
 echo "Labeling work node"
 echo "*******************************************************************************************************************"
-kubectl label node dev-worker ingress-ready=true
+#kubectl label node dev-worker ingress-ready=true
